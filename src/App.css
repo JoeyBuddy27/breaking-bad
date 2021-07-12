@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.center {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.App {
+  background-image: url("./images/bg.jpg");
+  background-position: top center;
+}
+
+.container {
+  /* height: 100vh; */
+  width: 1200px;
+  margin: 0px auto;
+}
+
+header > img {
+  padding: 1em;
+  max-width: 100%;
+}
+
+.characterGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.card {
+  cursor: pointer;
+  background-color: transparent;
+  height: 300px;
+  /* perspective: 1000px; */
+}
+
+.card h1 {
+  font-size: 25px;
+  border-bottom: 1px #fff solid;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s all ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.card-front:hover {
+  opacity: 0.4;
+}
+
+.card-front {
+  z-index: 1;
+  opacity: 1;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.card-back {
+  box-sizing: border-box;
+  z-index: 0;
+  background-color: #333;
   color: white;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.card li {
+  list-style: none;
+  padding-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 800px) {
+  .container {
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .characterGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .characterGrid {
+    grid-template-columns: 1fr;
+  }
+  .card img {
+    width: 100%;
+
+    object-fit: cover;
   }
 }

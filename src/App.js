@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./components/UI/Header";
+import Spinner from "./components/UI/Spinner";
+import CharacterGrid from "./components/characters/CharacterGrid";
+import SearchFilter from "./components/UI/SearchFilter";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [characters, setCharacters] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const getAllCharacters = async () => {
+      setIsLoading(true);
+      const result = await axios.get(
+        `https://www.breakingbadapi.com/api/characters?name=${query}`
+      );
+      setCharacters(result.data);
+      setIsLoading(false);
+      console.log(result.data);
+    };
+    getAllCharacters();
+  }, [query]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <Header />
+        <SearchFilter getQuery={(q) => setQuery(q)} />
+        <CharacterGrid characterList={characters} isLoading={isLoading} />
+        {isLoading && <Spinner />}
+      </div>
     </div>
   );
 }
